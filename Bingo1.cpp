@@ -41,6 +41,7 @@ int main(){
             CheckUserBingo(nUsertable, nUserBingo);
             CheckComBingo(nComtable, nComBingo);
         }
+        ShowTable(nUsertable);
         ShowTable(nComtable);
 
         cout << "User Bingo: " << nUserBingo << endl;
@@ -132,7 +133,7 @@ void ComSelect(int* userTable, int* comTable, vector<int>& v){
         }
 
         if(i == 24){
-            cout << nSelect << " is not exsist!" << endl;
+            cout << nSelect << " is selected!" << endl;
             Sleep(1000);
         }
     }
