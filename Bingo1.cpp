@@ -36,11 +36,14 @@ int main(){
             cout << endl;
 
             UserSelect(nUsertable, nComtable, v);
-            ComSelect(nUsertable, nComtable, v);
-
             CheckUserBingo(nUsertable, nUserBingo);
+
+            ComSelect(nUsertable, nComtable, v);
             CheckComBingo(nComtable, nComBingo);
         }
+        CheckUserBingo(nUsertable, nUserBingo);
+        CheckComBingo(nComtable, nComBingo);
+
         ShowTable(nUsertable);
         ShowTable(nComtable);
 
@@ -104,7 +107,7 @@ void UserSelect(int* userTable, int* comTable, vector<int>& v){
         }
 
         if(i == 24){
-            cout << nSelect << " is not exsist!" << endl;
+            cout << nSelect << " is already selected!" << endl;
             Sleep(1000);
         }
     }
@@ -112,9 +115,23 @@ void UserSelect(int* userTable, int* comTable, vector<int>& v){
 
 void ComSelect(int* userTable, int* comTable, vector<int>& v){
     int nSelect;
+    bool b = false;
 
     cout << "Computer is selecting number.." << endl;
-    nSelect = rand() % 25 + 1;
+
+    while(!b){
+        nSelect = rand() % 25 + 1;
+
+        for(int i = 0; i < v.size(); i++){
+            if(nSelect == v.at(i)){
+                break;
+            }
+
+            if(i == v.size() - 1){
+                b = true;
+            }
+        }
+    }
     v.push_back(nSelect);
 
     cout << "Computer's number: " << nSelect << endl;
@@ -130,11 +147,6 @@ void ComSelect(int* userTable, int* comTable, vector<int>& v){
                 }
             }
             break;
-        }
-
-        if(i == 24){
-            cout << nSelect << " is selected!" << endl;
-            Sleep(1000);
         }
     }
 }
@@ -203,36 +215,34 @@ void CheckUserBingo(int* userTable, int& nUserBingo){
 
     if(userCount == 5){
         nUserBingo++;
-        userCount = 0;
-    }
-    else{
-        userCount = 0;
     }
 }
 
 void CheckComBingo(int* comTable, int& nComBingo){
-    int comCount = 1;
-    int temp = 5;
+    int comCount = 0;
+    int temp = 0;
 
     nComBingo = 0;
 
+    //���� ���� �Ǵ�
     for(int i = 0; i < 25; i++){
         if(comTable[i] == 0){
             comCount++;
         }
 
         if(i % 5 == 4){
-            comCount = 1;
+            comCount = 0;
         }
 
         if(comCount == 5){
             nComBingo++;
-            comCount = 1;
+            comCount = 0;
         }
     }
 
-    comCount = 1;
+    comCount = 0;
 
+    //���� ���� �Ǵ�
     for(int i = 0; i < 5; i++){
         for(int j = 0; j < 5; j++){
             if(comTable[i + temp] == 0){
@@ -243,16 +253,17 @@ void CheckComBingo(int* comTable, int& nComBingo){
         }
         if(comCount == 5){
             nComBingo++;
-            comCount = 1;
+            comCount = 0;
         }
         else{
-            comCount = 1;
+            comCount = 0;
         }
-        temp = 5;
+        temp = 0;
     }
 
-    comCount = 1;
+    comCount = 0;
 
+    //�밢�� ���� �Ǵ�
     for(int i = 0; i < 5; i++){
         if(comTable[i * 6] == 0){
             comCount++;
@@ -261,12 +272,13 @@ void CheckComBingo(int* comTable, int& nComBingo){
 
     if(comCount == 5){
         nComBingo++;
-        comCount = 1;
+        comCount = 0;
     }
     else{
-        comCount = 1;
+        comCount = 0;
     }
 
+    //�밢�� ���� �Ǵ�
     for(int i = 1; i < 6; i++){
         if(comTable[i * 4] == 0){
             comCount++;
@@ -275,10 +287,6 @@ void CheckComBingo(int* comTable, int& nComBingo){
 
     if(comCount == 5){
         nComBingo++;
-        comCount = 1;
-    }
-    else{
-        comCount = 1;
     }
 }
 
