@@ -108,6 +108,7 @@ void UserSelect(int* userTable, int* comTable, vector<int>& v){
 
         if(i == 24){
             cout << nSelect << " is already selected!" << endl;
+            v.pop_back();
             Sleep(1000);
         }
     }
