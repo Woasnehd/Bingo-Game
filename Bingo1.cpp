@@ -26,8 +26,9 @@ int main(){
     while(isPlaying){
         InitTable(nUsertable);
         InitTable(nComtable);
+        v.clear();
 
-        while(nUserBingo < 3 && nComBingo < 3){
+        while(isPlaying){
             system("cls");
 
             ShowTable(nUsertable);
@@ -38,15 +39,24 @@ int main(){
             UserSelect(nUsertable, nComtable, v);
             CheckUserBingo(nUsertable, nUserBingo);
 
+            if(nUserBingo >= 3){
+                break;
+            }
+
             ComSelect(nUsertable, nComtable, v);
             CheckComBingo(nComtable, nComBingo);
+
+            if(nComBingo >= 3){
+                break;
+            }
         }
         CheckUserBingo(nUsertable, nUserBingo);
         CheckComBingo(nComtable, nComBingo);
 
         ShowTable(nUsertable);
         ShowTable(nComtable);
-
+        ShowNum(v);
+        cout << endl;
         cout << "User Bingo: " << nUserBingo << endl;
         cout << "Computer Bingo: " << nComBingo << endl;
 
