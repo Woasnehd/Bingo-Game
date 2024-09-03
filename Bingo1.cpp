@@ -293,7 +293,11 @@ void CheckComBingo(int* comTable, int& nComBingo){
 void ShowNum(vector<int>& v){
     cout << "Be selected number lists: ";
 
-    for(int i = 0; i < v.size(); i++){
-        cout << v.at(i) << " ";
+    if(!v.empty()){
+        for(int i = 0; i < v.size() - 1; i++){
+            cout << v.at(i) << ", ";
+        }
+
+        cout << v.at(v.size() - 1);
     }
 }
